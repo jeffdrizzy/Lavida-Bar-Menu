@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LaVida Bar – Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --gold: #C9A84C;
+  --gold2: #E8C97A;
+  --bg: #0B0E0C;
+  --text: #F2EBD9;
+  --muted: #7A8478;
+  --divider: rgba(201,168,76,0.15);
+  --green: #4C7A5A;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(76,122,90,0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+
+/* HERO */
+.hero {
+  position: relative; z-index: 1;
+  padding: 48px 24px 32px;
+  text-align: center;
+  border-bottom: 1px solid var(--divider);
+  background: linear-gradient(180deg, rgba(76,122,90,0.08) 0%, transparent 100%);
+}
+.hero-eyebrow {
+  font-size: 9px; letter-spacing: 5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px; font-weight: 700; line-height: 1;
+  color: var(--text);
+  text-shadow: 0 2px 20px rgba(201,168,76,0.15);
+}
+.hero-title span {
+  display: block; font-size: 18px; font-weight: 400;
+  color: var(--gold2); letter-spacing: 5px;
+  text-transform: uppercase; margin-top: 6px;
+}
+.gold-line {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin: 16px auto 0;
+}
+.gold-line::before { content: ''; width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+.gold-line::after  { content: ''; width: 60px; height: 1px; background: linear-gradient(to left,  transparent, var(--gold)); }
+.gold-line-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+.hero-note { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-top: 12px; }
+
+/* NAV TABS */
+.tabs {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; overflow-x: auto;
+  background: rgba(11,14,12,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--divider);
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex: none;
+  padding: 14px 18px;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted);
+  background: none; border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab-btn.active {
+  color: var(--gold2);
+  border-bottom-color: var(--gold);
+}
+
+/* SECTIONS */
+.content { position: relative; z-index: 1; padding: 28px 20px 60px; max-width: 640px; margin: 0 auto; }
+.section { display: none; }
+.section.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 600;
+  color: var(--gold2);
+  margin-bottom: 4px;
+}
+.section-sub {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px;
+}
+
+.subgroup-title {
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin: 28px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--divider);
+}
+.subgroup-title:first-of-type { margin-top: 0; }
+
+.item {
+  display: flex; align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.item-name { font-size: 15px; color: var(--text); font-weight: 400; }
+.item-note { font-size: 11px; color: var(--muted); margin-left: 6px; font-style: italic; }
+.item-dots {
+  flex: 1; margin: 0 8px;
+  border-bottom: 1px dotted rgba(201,168,76,0.25);
+  height: 1px; transform: translateY(-4px);
+}
+.item-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px; color: var(--gold2); font-weight: 600; white-space: nowrap;
+}
+
+/* PLATTERS */
+.platter-card {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(201,168,76,0.05);
+  border: 1px solid var(--divider);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+.platter-name { font-size: 15px; color: var(--text); }
+.platter-people { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
+.platter-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; color: var(--gold2); font-weight: 700;
+}
+
+/* FOOTER */
+.footer {
+  position: relative; z-index: 1;
+  text-align: center; padding: 28px 20px 40px;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted);
+  border-top: 1px solid var(--divider);
+}
+.footer span { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-eyebrow">Welcome To</p>
+  <h1 class="hero-title">LaVida<span>Bar Menu</span></h1>
+  <div class="gold-line"><div class="gold-line-diamond"></div></div>
+  <p class="hero-note">Drinks · Cocktails · Bites</p>
+</div>
+
+<div class="tabs" id="tabs">
+  <button class="tab-btn active" data-section="food">Food</button>
+  <button class="tab-btn" data-section="cocktails">Cocktails</button>
+  <button class="tab-btn" data-section="wine-glass">Wine by Glass</button>
+  <button class="tab-btn" data-section="beer">Beer</button>
+  <button class="tab-btn" data-section="whiskey">Whiskey</button>
+  <button class="tab-btn" data-section="vodka-tequila">Vodka & Tequila</button>
+  <button class="tab-btn" data-section="liqueurs">Liqueurs</button>
+  <button class="tab-btn" data-section="wines-bottle">Wines & Champagne</button>
+  <button class="tab-btn" data-section="other-spirits">Other Spirits</button>
+  <button class="tab-btn" data-section="softdrinks">Soft Drinks</button>
+  <button class="tab-btn" data-section="desserts">Desserts & Juice</button>
+  <button class="tab-btn" data-section="platters">Platters</button>
+</div>
+
+<div class="content">
+
+  <!-- FOOD -->
+  <div class="section active" id="food">
+    <h2 class="section-title">Food Menu</h2>
+    <p class="section-sub">LaVida Special Delicacies</p>
+
+    <div class="subgroup-title">Rice Delicacies</div>
+    <div class="item"><span class="item-name">LaVida Party Jollof Rice</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">LaVida Special Fried Rice</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">Seafood Jollof Rice <span class="item-note">(fish, prawns & crab)</span></span><span class="item-dots"></span><span class="item-price">₦10,000</span></div>
+    <div class="item"><span class="item-name">Native Rice & Turkey</span><span class="item-dots"></span><span class="item-price">₦7,000</span></div>
+    <div class="item"><span class="item-name">Coconut Rice & Turkey</span><span class="item-dots"></span><span class="item-price">₦7,000</span></div>
+    <div class="item"><span class="item-name">White Rice & Stew</span><span class="item-dots"></span><span class="item-price">₦1,500</span></div>
+
+    <div class="subgroup-title">Starters & Appetizers</div>
+    <div class="item"><span class="item-name">Samosa <span class="item-note">(4 pcs)</span></span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">Chicken & Chips</span><span class="item-dots"></span><span class="item-price">₦8,500</span></div>
+
+    <div class="subgroup-title">Proteins</div>
+    <div class="item"><span class="item-name">Peppered Chicken Wings</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Peppered Turkey</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+    <div class="item"><span class="item-name">Peppered Beef</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">Peppered Chicken</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">Peppered Gizzard</span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+
+    <div class="subgroup-title">Grilled & Barbecue</div>
+    <div class="item"><span class="item-name">Grilled Catfish</span><span class="item-dots"></span><span class="item-price">₦10,000</span></div>
+    <div class="item"><span class="item-name">Barbecue Chicken</span><span class="item-dots"></span><span class="item-price">₦8,000</span></div>
+    <div class="item"><span class="item-name">Grilled Goat Meat</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">Assorted Pepper Soup</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+    <div class="item"><span class="item-name">Goat Meat Pepper Soup</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+
+    <div class="subgroup-title">Sides</div>
+    <div class="item"><span class="item-name">French Fries</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Plantain Chips</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Fried Plantain</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">Coleslaw</span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+    <div class="item"><span class="item-name">Extra Chicken</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">Extra Turkey</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Salad</span><span class="item-dots"></span><span class="item-price">₦1,000</span></div>
+    <div class="item"><span class="item-name">LaVida Special Noodles & Eggs</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+  </div>
+
+  <!-- COCKTAILS -->
+  <div class="section" id="cocktails">
+    <h2 class="section-title">Cocktail & Mocktail Menu</h2>
+    <p class="section-sub">Signature Cocktails</p>
+
+    <div class="item"><span class="item-name">LaVida Paradise</span><span class="item-dots"></span><span class="item-price">₦7,000</span></div>
+    <div class="item"><span class="item-name">LaVida Sunset</span><span class="item-dots"></span><span class="item-price">₦6,500</span></div>
+    <div class="item"><span class="item-name">LaVida Royal Blue</span><span class="item-dots"></span><span class="item-price">₦8,000</span></div>
+    <div class="item"><span class="item-name">LaVida Tropical Storm</span><span class="item-dots"></span><span class="item-price">₦8,000</span></div>
+    <div class="item"><span class="item-name">LaVida Premium Punch</span><span class="item-dots"></span><span class="item-price">₦8,500</span></div>
+
+    <div class="subgroup-title">Classic Cocktails</div>
+    <div class="item"><span class="item-name">Mojito</span><span class="item-dots"></span><span class="item-price">₦6,500</span></div>
+    <div class="item"><span class="item-name">Long Island Iced Tea</span><span class="item-dots"></span><span class="item-price">₦7,000</span></div>
+    <div class="item"><span class="item-name">Margarita</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+    <div class="item"><span class="item-name">Cosmopolitan</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+    <div class="item"><span class="item-name">Tequila Sunrise</span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+    <div class="item"><span class="item-name">Sex on the Beach</span><span class="item-dots"></span><span class="item-price">₦6,500</span></div>
+    <div class="item"><span class="item-name">Blue Lagoon</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+    <div class="item"><span class="item-name">Piña Colada</span><span class="item-dots"></span><span class="item-price">₦6,000</span></div>
+    <div class="item"><span class="item-name">Whiskey Sour</span><span class="item-dots"></span><span class="item-price">₦7,000</span></div>
+    <div class="item"><span class="item-name">Martini</span><span class="item-dots"></span><span class="item-price">₦7,000</span></div>
+
+    <div class="subgroup-title">Premium Mocktails (Non-Alcoholic)</div>
+    <p class="section-sub" style="margin-bottom:14px;">LaVida Signature Mocktails</p>
+    <div class="item"><span class="item-name">LaVida Virgin Paradise</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">LaVida Tropical Splash</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">LaVida Berry Blast</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">LaVida Fruit Fusion</span><span class="item-dots"></span><span class="item-price">₦4,500</span></div>
+    <div class="item"><span class="item-name">LaVida Blue Ocean</span><span class="item-dots"></span><span class="item-price">₦4,500</span></div>
+  </div>
+
+  <!-- WINE BY GLASS -->
+  <div class="section" id="wine-glass">
+    <h2 class="section-title">Wine by the Glass</h2>
+    <p class="section-sub">By the glass</p>
+    <div class="item"><span class="item-name">Red Wine</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">White Wine</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Rosé Wine</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">Sparkling Wine</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+  </div>
+
+  <!-- BEER -->
+  <div class="section" id="beer">
+    <h2 class="section-title">Beer</h2>
+    <div class="item"><span class="item-name">Heineken</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">Budweiser</span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+    <div class="item"><span class="item-name">Guinness Stout</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">Hero</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+    <div class="item"><span class="item-name">33 Export</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Hero Big</span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+    <div class="item"><span class="item-name">Desperado</span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+    <div class="item"><span class="item-name">Trouble Black <span class="item-note">(Big)</span></span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Black Bullet</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">Trouble Black <span class="item-note">(Small)</span></span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+  </div>
+
+  <!-- WHISKEY -->
+  <div class="section" id="whiskey">
+    <h2 class="section-title">Whiskey</h2>
+    <div class="item"><span class="item-name">Jack Daniels</span><span class="item-dots"></span><span class="item-price">₦70,000</span></div>
+    <div class="item"><span class="item-name">Johnnie Walker Black Label</span><span class="item-dots"></span><span class="item-price">₦89,000</span></div>
+    <div class="item"><span class="item-name">Johnnie Walker Red Label</span><span class="item-dots"></span><span class="item-price">₦80,000</span></div>
+    <div class="item"><span class="item-name">Martell VS</span><span class="item-dots"></span><span class="item-price">₦90,000</span></div>
+    <div class="item"><span class="item-name">Jameson Black Barrel</span><span class="item-dots"></span><span class="item-price">₦80,000</span></div>
+    <div class="item"><span class="item-name">Martell Blue Swift</span><span class="item-dots"></span><span class="item-price">₦150,000</span></div>
+    <div class="item"><span class="item-name">Hennessy VS</span><span class="item-dots"></span><span class="item-price">₦100,000</span></div>
+    <div class="item"><span class="item-name">Hennessy VSOP</span><span class="item-dots"></span><span class="item-price">₦150,000</span></div>
+    <div class="item"><span class="item-name">Martini</span><span class="item-dots"></span><span class="item-price">₦75,000</span></div>
+    <div class="item"><span class="item-name">Gold Bottle</span><span class="item-dots"></span><span class="item-price">₦75,000</span></div>
+    <div class="item"><span class="item-name">St Remy</span><span class="item-dots"></span><span class="item-price">₦70,000</span></div>
+    <div class="item"><span class="item-name">St John</span><span class="item-dots"></span><span class="item-price">₦60,000</span></div>
+    <div class="item"><span class="item-name">William Jones</span><span class="item-dots"></span><span class="item-price">₦48,000</span></div>
+    <div class="item"><span class="item-name">Vine</span><span class="item-dots"></span><span class="item-price">₦40,000</span></div>
+    <div class="item"><span class="item-name">Jack Williams</span><span class="item-dots"></span><span class="item-price">₦70,000</span></div>
+    <div class="item"><span class="item-name">Black Island</span><span class="item-dots"></span><span class="item-price">₦80,000</span></div>
+  </div>
+
+  <!-- VODKA & TEQUILA -->
+  <div class="section" id="vodka-tequila">
+    <h2 class="section-title">Vodka & Tequila</h2>
+
+    <div class="subgroup-title">Vodka</div>
+    <div class="item"><span class="item-name">Smirnoff Choco Vodka</span><span class="item-dots"></span><span class="item-price">₦25,000</span></div>
+    <div class="item"><span class="item-name">Smirnoff Vodka Small</span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+    <div class="item"><span class="item-name">Flirt Vodka</span><span class="item-dots"></span><span class="item-price">₦35,000</span></div>
+    <div class="item"><span class="item-name">Ciroc</span><span class="item-dots"></span><span class="item-price">₦55,000</span></div>
+    <div class="item"><span class="item-name">Skirt</span><span class="item-dots"></span><span class="item-price">₦40,000</span></div>
+
+    <div class="subgroup-title">Tequila</div>
+    <div class="item"><span class="item-name">Don Julio</span><span class="item-dots"></span><span class="item-price">₦600,000</span></div>
+    <div class="item"><span class="item-name">Camino Real Tequila</span><span class="item-dots"></span><span class="item-price">₦35,000</span></div>
+    <div class="item"><span class="item-name">Tequila Olmeca</span><span class="item-dots"></span><span class="item-price">₦80,000</span></div>
+    <div class="item"><span class="item-name">Bacardi</span><span class="item-dots"></span><span class="item-price">₦35,000</span></div>
+    <div class="item"><span class="item-name">Gordon's <span class="item-note">(Small)</span></span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+    <div class="item"><span class="item-name">Gordon's <span class="item-note">(Big)</span></span><span class="item-dots"></span><span class="item-price">₦30,000</span></div>
+  </div>
+
+  <!-- LIQUEURS -->
+  <div class="section" id="liqueurs">
+    <h2 class="section-title">Liqueurs & Creams</h2>
+    <div class="item"><span class="item-name">Baileys Original</span><span class="item-dots"></span><span class="item-price">₦50,000</span></div>
+    <div class="item"><span class="item-name">Best Cream <span class="item-note">(Medium)</span></span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+    <div class="item"><span class="item-name">Jägermeister Herbs</span><span class="item-dots"></span><span class="item-price">₦50,000</span></div>
+    <div class="item"><span class="item-name">American Honey</span><span class="item-dots"></span><span class="item-price">₦50,000</span></div>
+    <div class="item"><span class="item-name">The Observatory</span><span class="item-dots"></span><span class="item-price">₦40,000</span></div>
+    <div class="item"><span class="item-name">Big Ben</span><span class="item-dots"></span><span class="item-price">₦10,000</span></div>
+  </div>
+
+  <!-- WINES & CHAMPAGNE (bottle) -->
+  <div class="section" id="wines-bottle">
+    <h2 class="section-title">Wines & Champagne</h2>
+    <div class="item"><span class="item-name">Carlo Rossi Sweet Red</span><span class="item-dots"></span><span class="item-price">₦25,000</span></div>
+    <div class="item"><span class="item-name">Four Cousins <span class="item-note">(Sweet Red, White, Rose)</span></span><span class="item-dots"></span><span class="item-price">₦25,000</span></div>
+    <div class="item"><span class="item-name">Andre <span class="item-note">(Rose)</span></span><span class="item-dots"></span><span class="item-price">₦60,000</span></div>
+    <div class="item"><span class="item-name">Belaire <span class="item-note">(Rose)</span></span><span class="item-dots"></span><span class="item-price">₦120,000</span></div>
+    <div class="item"><span class="item-name">Belaire <span class="item-note">(Lux)</span></span><span class="item-dots"></span><span class="item-price">₦150,000</span></div>
+    <div class="item"><span class="item-name">Azul</span><span class="item-dots"></span><span class="item-price">₦500,000</span></div>
+    <div class="item"><span class="item-name">Ella Wine</span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+    <div class="item"><span class="item-name">Bama</span><span class="item-dots"></span><span class="item-price">₦20,000</span></div>
+    <div class="item"><span class="item-name">Prosecco Rose</span><span class="item-dots"></span><span class="item-price">₦40,000</span></div>
+    <div class="item"><span class="item-name">Agor</span><span class="item-dots"></span><span class="item-price">₦25,000</span></div>
+    <div class="item"><span class="item-name">4th Street</span><span class="item-dots"></span><span class="item-price">₦25,000</span></div>
+    <div class="item"><span class="item-name">Veleta</span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+  </div>
+
+  <!-- OTHER SPIRITS -->
+  <div class="section" id="other-spirits">
+    <h2 class="section-title">Other Alcoholic Spirits</h2>
+    <div class="item"><span class="item-name">Campari <span class="item-note">(Big)</span></span><span class="item-dots"></span><span class="item-price">₦35,000</span></div>
+    <div class="item"><span class="item-name">Campari <span class="item-note">(Small)</span></span><span class="item-dots"></span><span class="item-price">₦25,000</span></div>
+    <div class="item"><span class="item-name">Orijin Bitters Bottle</span><span class="item-dots"></span><span class="item-price">₦15,000</span></div>
+    <div class="item"><span class="item-name">Orijin Bitters <span class="item-note">(PET)</span></span><span class="item-dots"></span><span class="item-price">₦5,000</span></div>
+    <div class="item"><span class="item-name">Orijin <span class="item-note">(PET)</span></span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Action Bitters</span><span class="item-dots"></span><span class="item-price">₦1,500</span></div>
+    <div class="item"><span class="item-name">LACOCO</span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+
+    <div class="subgroup-title">Shisha</div>
+    <div class="item"><span class="item-name">Shisha</span><span class="item-dots"></span><span class="item-price">₦10,000</span></div>
+    <div class="item"><span class="item-name">Shisha Coal</span><span class="item-dots"></span><span class="item-price">₦2,000</span></div>
+
+    <div class="subgroup-title">Energy Drinks & Mixers</div>
+    <div class="item"><span class="item-name">Red Bull</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Monster</span><span class="item-dots"></span><span class="item-price">₦4,000</span></div>
+    <div class="item"><span class="item-name">Predator</span><span class="item-dots"></span><span class="item-price">₦1,200</span></div>
+    <div class="item"><span class="item-name">Fearless</span><span class="item-dots"></span><span class="item-price">₦1,200</span></div>
+    <div class="item"><span class="item-name">Power Horse Liquor</span><span class="item-dots"></span><span class="item-price">₦2,500</span></div>
+    <div class="item"><span class="item-name">Blue Bullet</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+  </div>
+
+  <!-- SOFT DRINKS -->
+  <div class="section" id="softdrinks">
+    <h2 class="section-title">Soft Drinks & Water</h2>
+    <div class="item"><span class="item-name">Coca-Cola Plastic</span><span class="item-dots"></span><span class="item-price">₦1,000</span></div>
+    <div class="item"><span class="item-name">Coca-Cola Can</span><span class="item-dots"></span><span class="item-price">₦1,500</span></div>
+    <div class="item"><span class="item-name">Fanta Plastic</span><span class="item-dots"></span><span class="item-price">₦1,000</span></div>
+    <div class="item"><span class="item-name">Fanta Can</span><span class="item-dots"></span><span class="item-price">₦1,500</span></div>
+    <div class="item"><span class="item-name">Soda Water</span><span class="item-dots"></span><span class="item-price">₦1,500</span></div>
+    <div class="item"><span class="item-name">Eva Water</span><span class="item-dots"></span><span class="item-price">₦500</span></div>
+    <div class="item"><span class="item-name">Olivia Water</span><span class="item-dots"></span><span class="item-price">₦500</span></div>
+    <div class="item"><span class="item-name">Aquafina Water</span><span class="item-dots"></span><span class="item-price">₦500</span></div>
+    <div class="item"><span class="item-name">Hollandia Plain Yoghurt</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Chi Exotic</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Ysmartic</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+    <div class="item"><span class="item-name">Yogamilk</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Malt</span><span class="item-dots"></span><span class="item-price">₦1,500</span></div>
+    <div class="item"><span class="item-name">Tampico</span><span class="item-dots"></span><span class="item-price">₦1,000</span></div>
+    <div class="item"><span class="item-name">Chi Active</span><span class="item-dots"></span><span class="item-price">₦3,500</span></div>
+  </div>
+
+  <!-- DESSERTS -->
+  <div class="section" id="desserts">
+    <h2 class="section-title">Desserts & Fresh Juices</h2>
+    <div class="subgroup-title">Desserts</div>
+    <div class="item"><span class="item-name">Ice Cream</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Chocolate Cake Slice</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Fruit Salad</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+
+    <div class="subgroup-title">Fresh Juices</div>
+    <div class="item"><span class="item-name">Orange Juice</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Pineapple Juice</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Watermelon Juice</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+    <div class="item"><span class="item-name">Chapman</span><span class="item-dots"></span><span class="item-price">₦3,000</span></div>
+  </div>
+
+  <!-- PLATTERS -->
+  <div class="section" id="platters">
+    <h2 class="section-title">LaVida Family Platters</h2>
+    <div class="platter-card">
+      <div>
+        <div class="platter-name">Couples Platter</div>
+        <span class="platter-people">2 Persons</span>
+      </div>
+      <div class="platter-price">₦15,000</div>
+    </div>
+    <div class="platter-card">
+      <div>
+        <div class="platter-name">Friends Platter</div>
+        <span class="platter-people">4 Persons</span>
+      </div>
+      <div class="platter-price">₦25,000</div>
+    </div>
+    <div class="platter-card">
+      <div>
+        <div class="platter-name">VIP Family Platter</div>
+        <span class="platter-people">6–8 Persons</span>
+      </div>
+      <div class="platter-price">₦50,000</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>LaVida</span> Bar &amp; Lounge · Prices subject to change
+</div>
+
+<script>
+const tabs = document.querySelectorAll('.tab-btn');
+const sections = document.querySelectorAll('.section');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.section).classList.add('active');
+    tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
+});
+</script>
+</body>
+</html>
